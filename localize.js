@@ -91,6 +91,11 @@ function npxCommand() {
     return os.platform() === 'win32' ? 'npx.cmd' : 'npx';
 }
 
+function localAsarCommand() {
+    const executable = os.platform() === 'win32' ? 'asar.cmd' : 'asar';
+    return path.join(__dirname, 'node_modules', '.bin', executable);
+}
+
 function run(command, args, options = {}) {
     execFileSync(command, args, {
         stdio: options.stdio || 'inherit',
@@ -99,7 +104,12 @@ function run(command, args, options = {}) {
 }
 
 function runAsar(args, options = {}) {
-    run(npxCommand(), ['--yes', 'asar', ...args], options);
+    const localAsar = localAsarCommand();
+    if (fs.existsSync(localAsar)) {
+        run(localAsar, args, options);
+        return;
+    }
+    run(npxCommand(), ['--yes', '@electron/asar', ...args], options);
 }
 
 function getDefaultAsarPath() {
@@ -433,7 +443,7 @@ function packAndSwap(tempUnpackDir, asarPath, dryRun) {
     }
 
     if (dryRun) {
-        logInfo(`[dry-run] 将执行: npx --yes asar ${packArgs.join(' ')}`);
+        logInfo(`[dry-run] 将执行: asar ${packArgs.join(' ')}，若未安装本地依赖则回退到 npx --yes @electron/asar`);
         return;
     }
 

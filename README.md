@@ -1,64 +1,53 @@
-# Antigravity 客户端汉化补丁工具
+# Antigravity Chinese Patch
 
-这个工具用于给 Antigravity Electron 客户端注入中文界面补丁。当前实现通过修改 `app.asar` 内的 `dist/preload.js` 和 `dist/loadingOverlay.js` 完成运行时翻译。
+[![CI](https://github.com/benjihio/antigravity-chinese-patch/actions/workflows/ci.yml/badge.svg)](https://github.com/benjihio/antigravity-chinese-patch/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/benjihio/antigravity-chinese-patch?include_prereleases)](https://github.com/benjihio/antigravity-chinese-patch/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> 注意：这是本地修改客户端资源包的补丁工具，不是官方语言包。Antigravity 更新后可能需要重新执行补丁。
+Antigravity 客户端汉化补丁工具。它会给 Antigravity Electron 客户端注入中文界面补丁，并保留全局 Serif 字体风格。
 
-## 文件说明
+> 非官方项目：本工具不是 Google 或 Antigravity 官方语言包。它会修改本地 `app.asar`，请先确认你愿意承担本地补丁带来的兼容性风险。
 
-1. `localize.js`：补丁控制脚本，负责定位 `app.asar`、版本化备份、解包、注入、重新封包、恢复备份和 macOS 本地重签名。
-2. `hack_preload.js`：运行时 DOM 翻译补丁，包含翻译词库、属性拦截、动态节点监听、代码/编辑器区域保护和全局 Serif 字体样式。
-3. `package.json`：可选 npm 脚本和 asar CLI 版本声明。
+## Features
 
-## 环境要求
+- macOS / Windows 默认路径自动识别。
+- 运行时 DOM 汉化，覆盖文本、按钮、tooltip、placeholder、aria-label 和常见 data tooltip 属性。
+- 全局 `Lora + Noto Serif SC` Serif 字体风格，并尽量排除图标字体避免图标乱码。
+- 跳过代码块、终端、编辑器和输入内容，降低误翻代码的概率。
+- v2 marker 幂等注入，多次运行不会重复追加补丁。
+- 版本化备份 `app.asar` 和 `app.asar.unpacked`。
+- `--dry-run` 只读检查，`--restore` 一键恢复。
+- macOS 修改后自动 Ad-hoc 重签名。
+- GitHub Actions 自动检查并生成 release zip。
 
-- Node.js
-- 可运行 `npx`
-- macOS 需要系统自带 `codesign`，脚本默认会在写入后进行 Ad-hoc 本地重签名
-
-## 默认路径
-
-脚本会自动识别以下默认路径：
-
-- macOS：`/Applications/Antigravity.app/Contents/Resources/app.asar`
-- Windows：`%LOCALAPPDATA%\Programs\antigravity\resources\app.asar`
-
-如果客户端安装在其他位置，可以用 `--asar` 指定路径，或在交互提示里拖拽 `app.asar`。
-
-## 使用方式
+## Quick Start
 
 ```bash
-cd /path/to/antigravity-chinese-patch
+git clone https://github.com/benjihio/antigravity-chinese-patch.git
+cd antigravity-chinese-patch
+npm install
+npm run check
+node localize.js --dry-run
 node localize.js
 ```
 
-直接指定路径：
+如果 Antigravity 不在默认路径，手动指定 `app.asar`：
 
 ```bash
 node localize.js --asar "/Applications/Antigravity.app/Contents/Resources/app.asar"
 ```
 
-只检查，不写入应用：
+Windows 示例：
 
-```bash
-node localize.js --dry-run --asar "/Applications/Antigravity.app/Contents/Resources/app.asar"
+```powershell
+node localize.js --asar "$env:LOCALAPPDATA\Programs\antigravity\resources\app.asar"
 ```
 
-从最近一次版本化备份恢复：
+运行前建议彻底退出 Antigravity。macOS 可以用 `Cmd + Q`，Windows 可从托盘或任务管理器退出。
 
-```bash
-node localize.js --restore --asar "/Applications/Antigravity.app/Contents/Resources/app.asar"
-```
+## Restore
 
-macOS 下跳过重签名：
-
-```bash
-node localize.js --no-sign
-```
-
-## 备份与恢复
-
-每次正式执行补丁前，脚本会在 `app.asar` 同级目录创建版本化备份：
+脚本每次正式补丁前都会创建版本化备份：
 
 ```text
 antigravity-chinese-patch-backups/
@@ -68,42 +57,104 @@ antigravity-chinese-patch-backups/
     metadata.json
 ```
 
-备份会同时保存：
+恢复最近一次备份：
 
-- `app.asar`
-- `app.asar.unpacked`，如果存在
-- `metadata.json`，包含创建时间、平台、原始路径和 `app.asar` 的 SHA256
+```bash
+node localize.js --restore
+```
 
-恢复时请优先使用 `node localize.js --restore`，不要只手动替换 `app.asar`。Electron 应用可能同时依赖 `app.asar.unpacked`。
+恢复指定安装路径：
 
-## 幂等性设计
+```bash
+node localize.js --restore --asar "/Applications/Antigravity.app/Contents/Resources/app.asar"
+```
 
-- `hack_preload.js` 带有 `ANTIGRAVITY_ZH_PATCH_V2_START/END` 边界 marker。
-- `localize.js` 会先移除已有 v2 补丁再注入本地最新补丁。
-- 对早期旧补丁，会识别 `Antigravity 2.0 Claude Font and Chinese Interface Hack` marker 并替换为新补丁。
-- 不再依赖包内 `.orig` 文件，避免多次运行后把已注入文件当成原始文件。
+不要只手动替换 `app.asar`。Electron 应用可能同时依赖 `app.asar.unpacked`。
 
-## 打包策略
+## Commands
 
-脚本会根据现有 `app.asar.unpacked` 目录推断需要保留的 unpacked 目录，并在重新 `asar pack` 时传入 `--unpack-dir`。这样可以避免把原本应留在 sidecar 目录里的资源全部打进 `app.asar`。
+```bash
+node localize.js                       # 交互式补丁
+node localize.js --dry-run             # 只读检查，不写入应用
+node localize.js --restore             # 恢复最近一次版本化备份
+node localize.js --asar <path>         # 指定 app.asar
+node localize.js --no-sign             # macOS 跳过 codesign
+node localize.js --force               # 强制用本地补丁覆盖已有 v2 补丁
+npm run dist                           # 生成 GitHub release zip
+```
 
-## 运行时保护
+## Default Paths
 
-补丁会跳过以下区域，降低误翻代码和输入内容的概率：
+- macOS: `/Applications/Antigravity.app/Contents/Resources/app.asar`
+- Windows: `%LOCALAPPDATA%\Programs\antigravity\resources\app.asar`
 
-- `code`、`pre`、`kbd`、`samp`
-- `script`、`style`
-- `textarea`、`input` 内部文本
-- `[contenteditable="true"]`
-- `.monaco-editor`、`.cm-editor`、`.xterm`
-- 带 `data-language` 或 `data-testid*="code"` 的区域
+## How It Works
 
-补丁仍会翻译按钮、标题、placeholder、aria-label 等 UI 文本。
+1. 定位 `app.asar`。
+2. 创建版本化备份，包含 `app.asar` 和 `app.asar.unpacked`。
+3. 解包 `app.asar`。
+4. 替换 `dist/preload.js` 中已有旧补丁或 v2 补丁，再注入 `hack_preload.js`。
+5. 汉化 `dist/loadingOverlay.js`。
+6. 根据现有 `app.asar.unpacked` 推断 `--unpack-dir`，重新封包并保留 sidecar 布局。
+7. macOS 下执行 Ad-hoc 重签名。
 
-字体样式会尽量全局应用到客户端文本，同时排除常见图标字体类，避免图标按钮显示成乱码。
+## Missing Translations
 
-## 已知边界
+如果你发现仍有英文：
 
-- 翻译依赖 DOM 文本匹配，不等同于官方 i18n；新增界面文本需要继续补词库。
-- 如果 Antigravity 大版本改动了 `dist/preload.js` 或 `dist/loadingOverlay.js` 路径，脚本会停止并报错。
-- macOS 重签名会改变本地应用签名状态；这是修改 Electron 应用资源后的常见要求。
+1. 截图前先隐藏私人信息。
+2. 复制英文原文，例如 `Undo changes up to this point`。
+3. 打开 [Missing translation issue](https://github.com/benjihio/antigravity-chinese-patch/issues/new?template=missing_translation.yml)。
+
+欢迎直接提交 PR。翻译建议见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+## Release Package
+
+本地生成 zip：
+
+```bash
+npm run dist
+```
+
+输出位置：
+
+```text
+dist/antigravity-chinese-patch-v0.3.0.zip
+```
+
+GitHub 上推送 tag 会自动创建 Release：
+
+```bash
+git tag v0.3.0
+git push origin v0.3.0
+```
+
+## Repository Topics
+
+建议在 GitHub 仓库 Settings 或 About 区域添加这些 topics，方便别人搜索到：
+
+```text
+antigravity
+antigravity-chinese
+antigravity-localization
+chinese-patch
+electron
+asar
+localization
+i18n
+claude-font
+serif-font
+macos
+windows
+```
+
+## Known Limits
+
+- 这是运行时 DOM 文本替换，不等同于官方 i18n。
+- Antigravity 更新后，如果 `dist/preload.js` 或 `dist/loadingOverlay.js` 路径变化，脚本会停止并报错。
+- 某些远程加载或动态生成的文本可能需要继续补词库。
+- Google Fonts 可能受网络环境影响；如果字体加载失败，系统会回退到本地 Serif 字体。
+
+## License
+
+MIT. See [LICENSE](LICENSE).

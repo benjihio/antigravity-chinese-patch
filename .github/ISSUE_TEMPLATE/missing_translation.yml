@@ -1,0 +1,42 @@
+name: Missing translation
+description: Report English UI text that is not translated yet.
+title: "[Translation]: "
+labels:
+  - translation
+body:
+  - type: input
+    id: antigravity-version
+    attributes:
+      label: Antigravity version
+      placeholder: 2.0.11
+    validations:
+      required: true
+  - type: textarea
+    id: english
+    attributes:
+      label: Exact English text
+      description: Copy the original English text exactly as shown.
+      placeholder: Good response
+    validations:
+      required: true
+  - type: textarea
+    id: suggested
+    attributes:
+      label: Suggested Chinese translation
+      placeholder: 好评
+    validations:
+      required: false
+  - type: textarea
+    id: location
+    attributes:
+      label: Where does it appear?
+      placeholder: Tooltip on the thumbs-up button below an assistant response.
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: Paste a screenshot if possible. Remove private content first.
+    validations:
+      required: false

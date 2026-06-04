@@ -1,15 +1,41 @@
 {
   "name": "antigravity-chinese-patch",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
-  "description": "Local Chinese interface patcher for the Antigravity Electron client.",
+  "description": "Antigravity Electron client Chinese localization patcher with safe backups, restore, and global serif font support.",
+  "license": "MIT",
+  "author": "benjihio",
+  "homepage": "https://github.com/benjihio/antigravity-chinese-patch#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/benjihio/antigravity-chinese-patch.git"
+  },
+  "bugs": {
+    "url": "https://github.com/benjihio/antigravity-chinese-patch/issues"
+  },
+  "keywords": [
+    "antigravity",
+    "antigravity-chinese",
+    "antigravity-localization",
+    "chinese-patch",
+    "electron",
+    "asar",
+    "localization",
+    "i18n",
+    "claude-font",
+    "serif-font"
+  ],
   "scripts": {
     "patch": "node localize.js",
     "dry-run": "node localize.js --dry-run",
     "restore": "node localize.js --restore",
-    "check": "node --check localize.js && node --check hack_preload.js"
+    "check": "node --check localize.js && node --check hack_preload.js && node --check scripts/create-release.js",
+    "dist": "node scripts/create-release.js"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
-    "asar": "3.2.0"
+    "@electron/asar": "4.2.0"
   }
 }

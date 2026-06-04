@@ -240,16 +240,37 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'Add Comment': '添加评论',
             'Open file': '打开文件',
             'Open in IDE': '在 IDE 中打开',
-            
+            'Go to project': '转到项目',
+            'Go to Project': '转到项目',
+            'Go To Project': '转到项目',
+            'gotoproject': '转到项目',
+	            
             // ==================== Chat & Operations ====================
             'Clear History': '清空历史记录',
             'Delete Conversation': '删除当前对话',
             'Export Chat': '导出对话记录',
             'Copy Code': '复制代码',
+            'Copy Message': '复制消息',
+            'Copy message': '复制消息',
+            'Copy Response': '复制回复',
+            'Copy response': '复制回复',
+            'Copy to clipboard': '复制到剪贴板',
             'Copied!': '已复制!',
             'Try Again': '重新生成',
             'Stop Generating': '停止生成',
-            
+            'Regenerate Response': '重新生成回复',
+            'Regenerate response': '重新生成回复',
+            'Edit Message': '编辑消息',
+            'Edit message': '编辑消息',
+            'Undo': '撤销',
+            'Undo Changes': '撤销更改',
+            'Undo changes': '撤销更改',
+            'Undo changes up to this point': '撤销到此处的更改',
+            'Good response': '好评',
+            'Bad response': '差评',
+            'Read aloud': '朗读',
+            'Stop reading': '停止朗读',
+	            
             // ==================== Background Tasks & Statuses ====================
             'Idle': '空闲',
             'Paused': '已暂停',
@@ -680,6 +701,26 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
                 replace: '转到项目设置'
             },
             {
+                pattern: /\bGo\s+[Tt]o\s+[Pp]roject\b/,
+                replace: '转到项目'
+            },
+            {
+                pattern: /\bgotoproject\b/i,
+                replace: '转到项目'
+            },
+            {
+                pattern: /Undo changes up to this point/i,
+                replace: '撤销到此处的更改'
+            },
+            {
+                pattern: /Good response/i,
+                replace: '好评'
+            },
+            {
+                pattern: /Bad response/i,
+                replace: '差评'
+            },
+            {
                 pattern: /Refreshes in (\d+) hours?, (\d+) minutes?/,
                 replace: '将在 $1 小时 $2 分钟后刷新'
             },
@@ -749,10 +790,22 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             return null;
         }
 
+        const translatableAttributes = new Set([
+            'title',
+            'placeholder',
+            'aria-label',
+            'aria-description',
+            'data-tooltip',
+            'data-tooltip-content',
+            'data-tip',
+            'data-title',
+            'data-label'
+        ]);
+
         // 劫持 setAttribute 以拦截 DOM 属性更改
         const originalSetAttribute = Element.prototype.setAttribute;
         Element.prototype.setAttribute = function(name, value) {
-            if (typeof value === 'string' && (name === 'title' || name === 'placeholder' || name === 'aria-label')) {
+            if (typeof value === 'string' && translatableAttributes.has(String(name).toLowerCase())) {
                 const newVal = translateWithShortcut(value) || value;
                 originalSetAttribute.call(this, name, newVal);
             } else {
@@ -845,6 +898,16 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
                     const translated = translateWithShortcut(ariaLabel);
                     if (translated) node.setAttribute('aria-label', translated);
                 }
+                for (const attrName of translatableAttributes) {
+                    if (attrName === 'title' || attrName === 'placeholder' || attrName === 'aria-label') {
+                        continue;
+                    }
+                    const attrValue = node.getAttribute(attrName);
+                    if (attrValue) {
+                        const translated = translateWithShortcut(attrValue);
+                        if (translated) node.setAttribute(attrName, translated);
+                    }
+                }
                 // 处理按钮 value 属性
                 if (node.tagName === 'INPUT' && (node.type === 'button' || node.type === 'submit' || node.type === 'reset')) {
                     if (node.value) {
@@ -869,8 +932,9 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             const style = document.createElement('style');
             style.id = 'claude-font-override';
             style.textContent = `
+                @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Noto+Serif+SC:wght@200..900&display=swap');
                 :root {
-                    --ag-zh-global-font: "Noto Serif SC", "Songti SC", "STSong", "Lora", Georgia, serif;
+                    --ag-zh-global-font: "Lora", "Noto Serif SC", Georgia, "Songti SC", serif;
                 }
                 *:not(.codicon):not([class*="codicon"]):not(.material-icons):not([class*="material-icons"]):not([class*="icon"]) {
                     font-family: var(--ag-zh-global-font) !important;

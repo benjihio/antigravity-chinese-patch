@@ -1,0 +1,59 @@
+name: Bug report
+description: Report a patching, restore, or runtime translation bug.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please remove private paths, account names, tokens, and screenshots containing sensitive content.
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: macOS 15.5 / Windows 11
+    validations:
+      required: true
+  - type: input
+    id: antigravity-version
+    attributes:
+      label: Antigravity version
+      placeholder: 2.0.11
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command used
+      render: shell
+      placeholder: node localize.js --asar ...
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Terminal output
+      render: text
+    validations:
+      required: false
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-flight checks
+      options:
+        - label: I tried `--dry-run` first.
+        - label: I have a backup or know how to run `--restore`.
+        - label: I removed private data from logs and screenshots.

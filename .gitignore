@@ -2,3 +2,14 @@ node_modules/
 .DS_Store
 *.zip
 antigravity-chinese-patch-backups/
+dist/
+release/
+*.tgz
+*.asar
+*.asar.bak
+*.asar.mybak
+*.asar.unpacked/
+antigravity_temp_unpack/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
