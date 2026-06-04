@@ -1,0 +1,15 @@
+{
+  "name": "antigravity-chinese-patch",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Local Chinese interface patcher for the Antigravity Electron client.",
+  "scripts": {
+    "patch": "node localize.js",
+    "dry-run": "node localize.js --dry-run",
+    "restore": "node localize.js --restore",
+    "check": "node --check localize.js && node --check hack_preload.js"
+  },
+  "dependencies": {
+    "asar": "3.2.0"
+  }
+}
