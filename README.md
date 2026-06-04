@@ -129,25 +129,6 @@ git tag v0.3.0
 git push origin v0.3.0
 ```
 
-## Repository Topics
-
-建议在 GitHub 仓库 Settings 或 About 区域添加这些 topics，方便别人搜索到：
-
-```text
-antigravity
-antigravity-chinese
-antigravity-localization
-chinese-patch
-electron
-asar
-localization
-i18n
-claude-font
-serif-font
-macos
-windows
-```
-
 ## Known Limits
 
 - 这是运行时 DOM 文本替换，不等同于官方 i18n。
