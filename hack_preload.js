@@ -569,6 +569,12 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'no subagents': '无子智能体',
             'No background tasks': '无后台任务',
             'no background tasks': '无后台任务',
+            'The conversation was compacted while generating this response.': '在生成此响应时，对话已被压缩。',
+            'the conversation was compacted while generating this response.': '在生成此响应时，对话已被压缩。',
+            'The conversation was compacted while generating this response. ⓘ': '在生成此响应时，对话已被压缩。 ⓘ',
+            'the conversation was compacted while generating this response. ⓘ': '在生成此响应时，对话已被压缩。 ⓘ',
+            'Listed permissions': '已列出权限',
+            'listed permissions': '已列出权限',
         };
 
         const regexRules = [
