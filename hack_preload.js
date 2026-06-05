@@ -575,9 +575,17 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'the conversation was compacted while generating this response. ⓘ': '在生成此响应时，对话已被压缩。 ⓘ',
             'Listed permissions': '已列出权限',
             'listed permissions': '已列出权限',
+            'Result': '结果',
+            'result': '结果',
+            'Results': '结果',
+            'results': '结果',
         };
 
         const regexRules = [
+            {
+                pattern: /\b(\d+)\s+results?\b/,
+                replace: '$1 个结果'
+            },
             {
                 pattern: /\bWorked for\s+(\d+)\s*h\s*(\d+)\s*m\s*(\d+)\s*s/,
                 replace: '已运行 $1 小时 $2 分钟 $3 秒'
