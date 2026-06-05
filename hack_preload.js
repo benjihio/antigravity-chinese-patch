@@ -579,6 +579,26 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
 
         const regexRules = [
             {
+                pattern: /\bWorked for\s+(\d+)\s*h\s*(\d+)\s*m\s*(\d+)\s*s/,
+                replace: '已运行 $1 小时 $2 分钟 $3 秒'
+            },
+            {
+                pattern: /\bWorked for\s+(\d+)\s*m\s*(\d+)\s*s/,
+                replace: '已运行 $1 分钟 $2 秒'
+            },
+            {
+                pattern: /\bWorked for\s+(\d+)\s*h/,
+                replace: '已运行 $1 小时'
+            },
+            {
+                pattern: /\bWorked for\s+(\d+)\s*m/,
+                replace: '已运行 $1 分钟'
+            },
+            {
+                pattern: /\bWorked for\s+(\d+)\s*s/,
+                replace: '已运行 $1 秒'
+            },
+            {
                 pattern: /(\d+:\d+)\s+AM/,
                 replace: '上午 $1'
             },
