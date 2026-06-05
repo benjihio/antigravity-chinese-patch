@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.1 - 2026-06-05
+
+- Added translation for compacted conversation warning.
+- Added translation for tool execution status (`Listed permissions`).
+- Added regex rules for tool execution time duration (`Worked for 1m`).
+- Removed `Repository Topics` section from README.md to keep the document clean.
+
 ## 0.3.0 - 2026-06-04
 
 - Added missing tooltip translations for response feedback, undo actions, and project navigation.
