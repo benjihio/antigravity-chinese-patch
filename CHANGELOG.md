@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.3 - 2026-06-07
+
+- Added translation mapping and regex rule for tool execution actions (e.g. `Run download script`).
+
 ## 0.3.2 - 2026-06-05
 
 - Added translation mapping and regex rule for search and list results count (e.g. `3 results`).

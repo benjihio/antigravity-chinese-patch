@@ -579,9 +579,21 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'result': '结果',
             'Results': '结果',
             'results': '结果',
+            'download script': '下载脚本',
+            'Download script': '下载脚本',
+            'download': '下载',
+            'script': '脚本',
         };
 
         const regexRules = [
+            {
+                pattern: /\bRun\s+([\s\S]+)/,
+                replace: '运行 $1'
+            },
+            {
+                pattern: /\bRunning\s+([\s\S]+)/,
+                replace: '正在运行 $1'
+            },
             {
                 pattern: /\b(\d+)\s+results?\b/,
                 replace: '$1 个结果'
