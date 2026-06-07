@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.6 - 2026-06-07
+
+- Added translation rules for standalone folder/file counts (e.g. `2 folders ˅`, `5 files`).
+
 ## 0.3.5 - 2026-06-07
 
 - Refactored DOM translation engine to support recursive translation of dynamic regex-captured groups.

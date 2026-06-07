@@ -693,6 +693,14 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
                 replace: (match, p1) => `已探索 ${p1} 个文件夹`
             },
             {
+                pattern: /\b(\d+)\s+folders?\b/i,
+                replace: (match, p1) => `${p1} 个文件夹`
+            },
+            {
+                pattern: /\b(\d+)\s+files?\b/i,
+                replace: (match, p1) => `${p1} 个文件`
+            },
+            {
                 pattern: /\bRan\s+([\s\S]+)/,
                 replace: (match, p1) => `已运行 ${translateWithShortcut(p1) || p1}`
             },
