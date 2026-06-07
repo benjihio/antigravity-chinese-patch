@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.4 - 2026-06-07
+
+- Added translation and regex rules for timers, network errors, task statuses, and check actions (e.g. `Timed 40 seconds`, `Schedule download check: Timer has expired`).
+
 ## 0.3.3 - 2026-06-07
 
 - Added translation mapping and regex rule for tool execution actions (e.g. `Run download script`).

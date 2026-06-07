@@ -583,9 +583,27 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'Download script': '下载脚本',
             'download': '下载',
             'script': '脚本',
+            'There was a network issue connecting to the server, please try again.': '连接服务器时网络异常，请重试。',
+            'Unknown: There was a network issue connecting to the server, please try again.': '未知错误：连接服务器时网络异常，请重试。',
+            'Error Unknown: There was a network issue connecting to the server, please try again.': '未知错误：连接服务器时网络异常，请重试。',
+            'Check final model download': '检查最终模型下载',
+            'Check final model download finish': '检查最终模型下载完成',
+            'finish': '完成',
         };
 
         const regexRules = [
+            {
+                pattern: /\bSchedule\s+([\s\S]+?):\s*Timer\s+has\s+expired/i,
+                replace: '调度 $1：定时器已过期'
+            },
+            {
+                pattern: /\bTimed\s+(\d+)\s+seconds?\b/i,
+                replace: '定时 $1 秒'
+            },
+            {
+                pattern: /\b(\d+)\s+tasks?\b/i,
+                replace: '$1 个任务'
+            },
             {
                 pattern: /\bRun\s+([\s\S]+)/,
                 replace: '运行 $1'
