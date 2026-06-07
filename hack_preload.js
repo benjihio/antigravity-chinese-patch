@@ -719,6 +719,38 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
 
         const regexRules = [
             {
+                pattern: /\bRun\s+command\s+([\s\S]+)/i,
+                replace: (match, p1) => `运行命令 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bRun\s+command\b/i,
+                replace: '运行命令'
+            },
+            {
+                pattern: /\bRun\s+Command\s+([\s\S]+)/i,
+                replace: (match, p1) => `运行命令 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bRun\s+Command\b/i,
+                replace: '运行命令'
+            },
+            {
+                pattern: /\bExecuting\s+command\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在执行命令 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bExecuting\s+command\b/i,
+                replace: '正在执行命令'
+            },
+            {
+                pattern: /\bExecute\s+command\s+([\s\S]+)/i,
+                replace: (match, p1) => `执行命令 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bExecute\s+command\b/i,
+                replace: '执行命令'
+            },
+            {
                 pattern: /\bSearching\s+(?:the\s+)?web\s+for\s+([\s\S]+)/i,
                 replace: (match, p1) => `正在网页搜索 ${translateWithShortcut(p1) || p1}`
             },
