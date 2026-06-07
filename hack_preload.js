@@ -589,6 +589,15 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'Check final model download': '检查最终模型下载',
             'Check final model download finish': '检查最终模型下载完成',
             'finish': '完成',
+            'just now': '刚刚',
+            'yesterday': '昨天',
+            'today': '今天',
+            'a minute ago': '1 分钟前',
+            'an hour ago': '1 小时前',
+            'a day ago': '1 天前',
+            'a week ago': '1 周前',
+            'a month ago': '1 个月前',
+            'a year ago': '1 年前',
         };
 
         const regexRules = [
@@ -699,6 +708,106 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             {
                 pattern: /\b(\d+)\s+files?\b/i,
                 replace: (match, p1) => `${p1} 个文件`
+            },
+            {
+                pattern: /\b(\d+)\s+directories\b/i,
+                replace: (match, p1) => `${p1} 个目录`
+            },
+            {
+                pattern: /\b(\d+)\s+changes?\b/i,
+                replace: (match, p1) => `${p1} 处变更`
+            },
+            {
+                pattern: /\b(\d+)\s+insertions?\b/i,
+                replace: (match, p1) => `${p1} 次增加`
+            },
+            {
+                pattern: /\b(\d+)\s+deletions?\b/i,
+                replace: (match, p1) => `${p1} 次删除`
+            },
+            {
+                pattern: /\b(\d+)\s+agents?\s+running\b/i,
+                replace: (match, p1) => `${p1} 个智能体正在运行`
+            },
+            {
+                pattern: /\b(\d+)\s+agents?\b/i,
+                replace: (match, p1) => `${p1} 个智能体`
+            },
+            {
+                pattern: /\b(\d+)\s+conversations?\b/i,
+                replace: (match, p1) => `${p1} 个对话`
+            },
+            {
+                pattern: /\b(\d+)\s+tasks?\s+queued\b/i,
+                replace: (match, p1) => `${p1} 个任务已入队`
+            },
+            {
+                pattern: /\b(\d+)\s+tools?\b/i,
+                replace: (match, p1) => `${p1} 个工具`
+            },
+            {
+                pattern: /\b(\d+)\s+permissions?\b/i,
+                replace: (match, p1) => `${p1} 个权限`
+            },
+            {
+                pattern: /\b(\d+)\s+errors?\b/i,
+                replace: (match, p1) => `${p1} 个错误`
+            },
+            {
+                pattern: /\b(\d+)\s+warnings?\b/i,
+                replace: (match, p1) => `${p1} 个警告`
+            },
+            {
+                pattern: /\b(\d+)\s+seconds?\s+ago\b/i,
+                replace: (match, p1) => `${p1} 秒前`
+            },
+            {
+                pattern: /\b(\d+)\s+minutes?\s+ago\b/i,
+                replace: (match, p1) => `${p1} 分钟前`
+            },
+            {
+                pattern: /\b(\d+)\s+hours?\s+ago\b/i,
+                replace: (match, p1) => `${p1} 小时前`
+            },
+            {
+                pattern: /\b(\d+)\s+days?\s+ago\b/i,
+                replace: (match, p1) => `${p1} 天前`
+            },
+            {
+                pattern: /\b(\d+)\s+weeks?\s+ago\b/i,
+                replace: (match, p1) => `${p1} 周前`
+            },
+            {
+                pattern: /\b(\d+)\s+months?\s+ago\b/i,
+                replace: (match, p1) => `${p1} 个月前`
+            },
+            {
+                pattern: /\b(\d+)\s+years?\s+ago\b/i,
+                replace: (match, p1) => `${p1} 年前`
+            },
+            {
+                pattern: /\b(\d+(?:\.\d+)?)\s+bytes?\b/i,
+                replace: (match, p1) => `${p1} 字节`
+            },
+            {
+                pattern: /\b(\d+(?:\.\d+)?)\s+tokens?\/s\b/i,
+                replace: (match, p1) => `${p1} token/秒`
+            },
+            {
+                pattern: /\b(\d+)\s+tokens?\b/i,
+                replace: (match, p1) => `${p1} 个 token`
+            },
+            {
+                pattern: /\b(\d+)\s+commits?\s+ahead\s+of\s+([^\s]+)\b/i,
+                replace: (match, p1, p2) => `领先 ${p2} ${p1} 个提交`
+            },
+            {
+                pattern: /\b(\d+)\s+commits?\s+behind\s+([^\s]+)\b/i,
+                replace: (match, p1, p2) => `落后 ${p2} ${p1} 个提交`
+            },
+            {
+                pattern: /\b(\d+)\s+commits?\b/i,
+                replace: (match, p1) => `${p1} 个提交`
             },
             {
                 pattern: /\bRan\s+([\s\S]+)/,

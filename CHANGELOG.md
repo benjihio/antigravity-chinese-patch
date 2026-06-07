@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.7 - 2026-06-07
+
+- Added comprehensive localization rules for time-ago relative timestamps (e.g. `2 minutes ago`, `just now`, `yesterday`).
+- Added translation rules for standalone directories, changes, insertions, deletions, agents, conversations, tasks queued, tools, errors, warnings, bytes, token rates, and git commit relationships.
+
 ## 0.3.6 - 2026-06-07
 
 - Added translation rules for standalone folder/file counts (e.g. `2 folders ˅`, `5 files`).
