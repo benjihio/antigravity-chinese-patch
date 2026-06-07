@@ -710,9 +710,146 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'Enabled': '已启用',
             'Back': '返回',
             'Skip': '跳过',
+            'web': '网页',
+            'files': '文件',
+            'workspace': '工作区',
+            'codebase': '代码库',
+            'resource': '资源',
         };
 
         const regexRules = [
+            {
+                pattern: /\bSearching\s+(?:the\s+)?web\s+for\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在网页搜索 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bSearching\s+(?:the\s+)?web\s+for\s*$/i,
+                replace: '正在网页搜索'
+            },
+            {
+                pattern: /\bSearching\s+(?:the\s+)?web\b/i,
+                replace: '正在网页搜索'
+            },
+            {
+                pattern: /\bSearching\s+files\s+for\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在文件搜索 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bSearching\s+files\s+for\s*$/i,
+                replace: '正在文件搜索'
+            },
+            {
+                pattern: /\bSearching\s+files\b/i,
+                replace: '正在文件搜索'
+            },
+            {
+                pattern: /\bSearching\s+workspace\s+for\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在工作区搜索 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bSearching\s+workspace\s+for\s*$/i,
+                replace: '正在工作区搜索'
+            },
+            {
+                pattern: /\bSearching\s+workspace\b/i,
+                replace: '正在工作区搜索'
+            },
+            {
+                pattern: /\bSemantic\s+searching\s+for\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在语义搜索 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bSemantic\s+searching\b/i,
+                replace: '正在语义搜索'
+            },
+            {
+                pattern: /\bViewing\s+file\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在查看文件 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bViewing\s+file\b/i,
+                replace: '正在查看文件'
+            },
+            {
+                pattern: /\bViewing\s+resource\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在查看资源 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bViewing\s+resource\b/i,
+                replace: '正在查看资源'
+            },
+            {
+                pattern: /\bViewing\s+URL\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在查看网页 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bViewing\s+URL\b/i,
+                replace: '正在查看网页'
+            },
+            {
+                pattern: /\bReading\s+URL\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在读取网页 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bReading\s+URL\b/i,
+                replace: '正在读取网页'
+            },
+            {
+                pattern: /\bReading\s+file\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在读取文件 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bReading\s+file\b/i,
+                replace: '正在读取文件'
+            },
+            {
+                pattern: /\bEditing\s+file\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在编辑文件 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bEditing\s+file\b/i,
+                replace: '正在编辑文件'
+            },
+            {
+                pattern: /\bCreating\s+file\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在创建文件 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bCreating\s+file\b/i,
+                replace: '正在创建文件'
+            },
+            {
+                pattern: /\bWriting\s+file\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在写入文件 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bWriting\s+file\b/i,
+                replace: '正在写入文件'
+            },
+            {
+                pattern: /\bDeleting\s+file\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在删除文件 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bDeleting\s+file\b/i,
+                replace: '正在删除文件'
+            },
+            {
+                pattern: /\bRunning\s+command\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在运行命令 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bRunning\s+command\b/i,
+                replace: '正在运行命令'
+            },
+            {
+                pattern: /\bAnalyzing\s+directory\s+([\s\S]+)/i,
+                replace: (match, p1) => `正在分析目录 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bAnalyzing\s+directory\b/i,
+                replace: '正在分析目录'
+            },
             {
                 pattern: /\bSchedule\s+([\s\S]+?):\s*Timer\s+has\s+expired/i,
                 replace: (match, p1) => `调度 ${translateWithShortcut(p1) || p1}：定时器已过期`

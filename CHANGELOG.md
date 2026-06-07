@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.9 - 2026-06-07
+
+- Added translation rules for agent tool execution actions in the timeline (e.g. `Searching web/files/workspace for`, `Viewing/Reading/Editing/Creating/Writing/Deleting file`, `Running command`, `Analyzing directory`).
+
 ## 0.3.8 - 2026-06-07
 
 - Added comprehensive translation mapping for MCP server connections, Git status panel categories, workspace layouts (Terminal, Output, Problems, Debug Console), developer configurations (Temperature, API key, etc.), file search, and agent execution lifecycle states (thinking, calling tools, generating response).
