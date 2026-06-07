@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.8 - 2026-06-07
+
+- Added comprehensive translation mapping for MCP server connections, Git status panel categories, workspace layouts (Terminal, Output, Problems, Debug Console), developer configurations (Temperature, API key, etc.), file search, and agent execution lifecycle states (thinking, calling tools, generating response).
+
 ## 0.3.7 - 2026-06-07
 
 - Added comprehensive localization rules for time-ago relative timestamps (e.g. `2 minutes ago`, `just now`, `yesterday`).
