@@ -1,6 +1,6 @@
 {
   "name": "antigravity-chinese-patch",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "private": true,
   "description": "Antigravity Electron client Chinese localization patcher with safe backups, restore, and global serif font support.",
   "license": "MIT",

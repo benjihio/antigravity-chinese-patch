@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.5 - 2026-06-07
+
+- Refactored DOM translation engine to support recursive translation of dynamic regex-captured groups.
+- Enhanced suffix and prefix stripping to support all forms of arrows, chevrons, keyboard shortcuts, and ellipses.
+- Added a translation rule for task actions ending in "finish" (e.g. `Check final model download finish`).
+- Narrowed the `shouldSkipNode` selectors to prevent over-skipping of action buttons and UI tabs.
+
 ## 0.3.4 - 2026-06-07
 
 - Added translation and regex rules for timers, network errors, task statuses, and check actions (e.g. `Timed 40 seconds`, `Schedule download check: Timer has expired`).

@@ -594,55 +594,55 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
         const regexRules = [
             {
                 pattern: /\bSchedule\s+([\s\S]+?):\s*Timer\s+has\s+expired/i,
-                replace: '调度 $1：定时器已过期'
+                replace: (match, p1) => `调度 ${translateWithShortcut(p1) || p1}：定时器已过期`
             },
             {
                 pattern: /\bTimed\s+(\d+)\s+seconds?\b/i,
-                replace: '定时 $1 秒'
+                replace: (match, p1) => `定时 ${p1} 秒`
             },
             {
                 pattern: /\b(\d+)\s+tasks?\b/i,
-                replace: '$1 个任务'
+                replace: (match, p1) => `${p1} 个任务`
             },
             {
                 pattern: /\bRun\s+([\s\S]+)/,
-                replace: '运行 $1'
+                replace: (match, p1) => `运行 ${translateWithShortcut(p1) || p1}`
             },
             {
                 pattern: /\bRunning\s+([\s\S]+)/,
-                replace: '正在运行 $1'
+                replace: (match, p1) => `正在运行 ${translateWithShortcut(p1) || p1}`
             },
             {
                 pattern: /\b(\d+)\s+results?\b/,
-                replace: '$1 个结果'
+                replace: (match, p1) => `${p1} 个结果`
             },
             {
                 pattern: /\bWorked for\s+(\d+)\s*h\s*(\d+)\s*m\s*(\d+)\s*s/,
-                replace: '已运行 $1 小时 $2 分钟 $3 秒'
+                replace: (match, p1, p2, p3) => `已运行 ${p1} 小时 ${p2} 分钟 ${p3} 秒`
             },
             {
                 pattern: /\bWorked for\s+(\d+)\s*m\s*(\d+)\s*s/,
-                replace: '已运行 $1 分钟 $2 秒'
+                replace: (match, p1, p2) => `已运行 ${p1} 分钟 ${p2} 秒`
             },
             {
                 pattern: /\bWorked for\s+(\d+)\s*h/,
-                replace: '已运行 $1 小时'
+                replace: (match, p1) => `已运行 ${p1} 小时`
             },
             {
                 pattern: /\bWorked for\s+(\d+)\s*m/,
-                replace: '已运行 $1 分钟'
+                replace: (match, p1) => `已运行 ${p1} 分钟`
             },
             {
                 pattern: /\bWorked for\s+(\d+)\s*s/,
-                replace: '已运行 $1 秒'
+                replace: (match, p1) => `已运行 ${p1} 秒`
             },
             {
                 pattern: /(\d+:\d+)\s+AM/,
-                replace: '上午 $1'
+                replace: (match, p1) => `上午 ${p1}`
             },
             {
                 pattern: /(\d+:\d+)\s+PM/,
-                replace: '下午 $1'
+                replace: (match, p1) => `下午 ${p1}`
             },
             {
                 pattern: /Full\s*Machine/,
@@ -650,23 +650,27 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             },
             {
                 pattern: /(\d+)\s+tasks?\s+running/,
-                replace: '$1 个任务正在运行'
+                replace: (match, p1) => `${p1} 个任务正在运行`
             },
             {
                 pattern: /([\s\S]+?)\s+finished/,
-                replace: '$1 已完成'
+                replace: (match, p1) => `${translateWithShortcut(p1) || p1} 已完成`
+            },
+            {
+                pattern: /([\s\S]+?)\s+finish/,
+                replace: (match, p1) => `${translateWithShortcut(p1) || p1} 完成`
             },
             {
                 pattern: /(\d+)\s+files?\s+changed\s+(\+\d+)\s+(-\d+)/,
-                replace: '$1 个文件已更改 $2 $3'
+                replace: (match, p1, p2, p3) => `${p1} 个文件已更改 ${p2} ${p3}`
             },
             {
                 pattern: /(\d+)\s+files?\s+changed/,
-                replace: '$1 个文件已更改'
+                replace: (match, p1) => `${p1} 个文件已更改`
             },
             {
                 pattern: /(\d+(?:\.\d+)?%)\s+of the customization budget is available\./,
-                replace: '$1 的自定义预算可用。'
+                replace: (match, p1) => `${p1} 的自定义预算可用。`
             },
             {
                 pattern: /of the customization budget is available\./,
@@ -678,87 +682,87 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             },
             {
                 pattern: /\bExplored\s+(\d+)\s+files?,\s+(\d+)\s+folders?/,
-                replace: '已探索 $1 个文件，$2 个文件夹'
+                replace: (match, p1, p2) => `已探索 ${p1} 个文件，${p2} 个文件夹`
             },
             {
                 pattern: /\bExplored\s+(\d+)\s+files?/,
-                replace: '已探索 $1 个文件'
+                replace: (match, p1) => `已探索 ${p1} 个文件`
             },
             {
                 pattern: /\bExplored\s+(\d+)\s+folders?/,
-                replace: '已探索 $1 个文件夹'
+                replace: (match, p1) => `已探索 ${p1} 个文件夹`
             },
             {
                 pattern: /\bRan\s+([\s\S]+)/,
-                replace: '已运行 $1'
+                replace: (match, p1) => `已运行 ${translateWithShortcut(p1) || p1}`
             },
             {
                 pattern: /\bExploring\s+(\d+)\s+files?,\s+(\d+)\s+searches?/,
-                replace: '正在探索 $1 个文件，$2 次搜索'
+                replace: (match, p1, p2) => `正在探索 ${p1} 个文件，${p2} 次搜索`
             },
             {
                 pattern: /\bExploring\s+(\d+)\s+files?,\s+(\d+)\s+search/,
-                replace: '正在探索 $1 个文件，$2 次搜索'
+                replace: (match, p1, p2) => `正在探索 ${p1} 个文件，${p2} 次搜索`
             },
             {
                 pattern: /\bExploring\s+(\d+)\s+files?/,
-                replace: '正在探索 $1 个文件'
+                replace: (match, p1) => `正在探索 ${p1} 个文件`
             },
             {
                 pattern: /\bExploring\s+(\d+)\s+search/,
-                replace: '正在探索 $1 次搜索'
+                replace: (match, p1) => `正在探索 ${p1} 次搜索`
             },
             {
                 pattern: /\bSearched\s+([\s\S]+?)\s+(\d+)\s+results?/,
-                replace: '已搜索 $1，获得 $2 个结果'
+                replace: (match, p1, p2) => `已搜索 ${translateWithShortcut(p1) || p1}，获得 ${p2} 个结果`
             },
             {
                 pattern: /\bAnalyzed\s+([\s\S]+)/,
-                replace: '已分析 $1'
+                replace: (match, p1) => `已分析 ${translateWithShortcut(p1) || p1}`
             },
             {
                 pattern: /\bEdited\s+([\s\S]+?)\s+(\+\d+)\s+(-\d+)/,
-                replace: '已编辑 $1 $2 $3'
+                replace: (match, p1, p2, p3) => `已编辑 ${translateWithShortcut(p1) || p1} ${p2} ${p3}`
             },
             {
                 pattern: /\bCreated\s+(\d+)\s+files?/,
-                replace: '已创建 $1 个文件'
+                replace: (match, p1) => `已创建 ${p1} 个文件`
             },
             {
                 pattern: /\bDeleted\s+(\d+)\s+files?/,
-                replace: '已删除 $1 个文件'
+                replace: (match, p1) => `已删除 ${p1} 个文件`
             },
             {
                 pattern: /\bWritten\s+(\d+)\s+files?/,
-                replace: '已写入 $1 个文件'
+                replace: (match, p1) => `已写入 ${p1} 个文件`
             },
             {
                 pattern: /\bFailed to\s+([\s\S]+)/,
-                replace: '未能$1'
+                replace: (match, p1) => `未能${translateWithShortcut(p1) || p1}`
             },
             {
                 pattern: /See all \((\d+)\)/,
-                replace: '查看全部 ($1)'
+                replace: (match, p1) => `查看全部 (${p1})`
             },
             {
                 pattern: /Thought for ([^\s]+s)(\s*>)?/,
-                replace: '思考了 $1$2'
+                replace: (match, p1, p2) => `思考了 ${p1}${p2 || ''}`
             },
             {
                 pattern: /Media \(Today ([^\)]+)\)/,
-                replace: '媒体 (今天 $1)'
+                replace: (match, p1) => `媒体 (今天 ${p1})`
             },
             {
                 pattern: /Media \(Yesterday ([^\)]+)\)/,
-                replace: '媒体 (昨天 $1)'
+                replace: (match, p1) => `媒体 (昨天 ${p1})`
             },
             {
                 pattern: /Media \((\d{4}-\d{2}-\d{2}) ([^\)]+)\)/,
-                replace: '媒体 ($1 $2)'
+                replace: (match, p1, p2) => `媒体 (${p1} ${p2})`
             },
             {
                 pattern: /Send feedback as (.*)/,
-                replace: '发送反馈身份为 $1'
+                replace: (match, p1) => `发送反馈身份为 ${p1}`
             },
             {
                 pattern: /Go [Tt]o Projects/,
@@ -786,19 +790,19 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             },
             {
                 pattern: /Refreshes in (\d+) hours?, (\d+) minutes?/,
-                replace: '将在 $1 小时 $2 分钟后刷新'
+                replace: (match, p1, p2) => `将在 ${p1} 小时 ${p2} 分钟后刷新`
             },
             {
                 pattern: /Refreshes in (\d+) hours?/,
-                replace: '将在 $1 小时后刷新'
+                replace: (match, p1) => `将在 ${p1} 小时后刷新`
             },
             {
                 pattern: /Refreshes in (\d+) minutes?/,
-                replace: '将在 $1 分钟后刷新'
+                replace: (match, p1) => `将在 ${p1} 分钟后刷新`
             },
             {
                 pattern: /Refreshes in (\d+) seconds?/,
-                replace: '将在 $1 秒后刷新'
+                replace: (match, p1) => `将在 ${p1} 秒后刷新`
             },
             {
                 pattern: /Your Plan:\s*/,
@@ -810,7 +814,7 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             },
             {
                 pattern: /Show (\d+) breakdowns?/,
-                replace: '显示 $1 个明细'
+                replace: (match, p1) => `显示 ${p1} 个明细`
             }
         ];
 
@@ -825,32 +829,60 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
                 return translateMap[trimmed];
             }
             
-            // 匹配快捷键后缀，例如 "Select Project ⌘;" 或 "New Conversation ⌘N" 或 "Chat ⌘1"
-            const match = trimmed.match(/^([\s\S]+?)\s+([⌘⌥⇧⌃\^]|\bCtrl\b|\bAlt\b|\bShift\b|\bCmd\b).+$/);
-            if (match) {
-                const prefix = match[1].trim();
-                const shortcutPart = trimmed.substring(match[1].length);
-                if (translateMap[prefix]) {
-                    return text.replace(trimmed, translateMap[prefix] + shortcutPart);
+            const shortcutRegex = /\s+([⌘⌥⇧⌃\^]|\bCtrl\b|\bAlt\b|\bShift\b|\bCmd\b).+$/i;
+            
+            let core = trimmed;
+            let prefixPart = '';
+            let suffixPart = '';
+            
+            // 1. Strip keyboard shortcut suffix first
+            const shortcutMatch = core.match(shortcutRegex);
+            if (shortcutMatch) {
+                suffixPart = core.substring(shortcutMatch.index) + suffixPart;
+                core = core.substring(0, shortcutMatch.index).trim();
+            }
+            
+            // 2. Strip prefix arrows/chevrons/colons/dots
+            const prefixMatch = core.match(/^([>›→»˅˄∨^v▼▲▾▴▽△↓↑◄►◂▸◃▹‹<←«\s|:：]+)/);
+            if (prefixMatch && prefixMatch[0].length < core.length) {
+                prefixPart = prefixMatch[0];
+                core = core.substring(prefixMatch[0].length).trim();
+            }
+            
+            // 3. Strip suffix arrows/chevrons/colons/dots
+            const suffixMatch = core.match(/([>›→»˅˄∨^v▼▲▾▴▽△↓↑◄►◂▸◃▹‹<←«\s|:：]+)$/);
+            if (suffixMatch && suffixMatch[0].length < core.length) {
+                suffixPart = suffixMatch[0] + suffixPart;
+                core = core.substring(0, core.length - suffixMatch[0].length).trim();
+            }
+            
+            // Ellipsis or trailing dots
+            const trailingDotMatch = core.match(/(\s*(\.{3}|…))$/);
+            if (trailingDotMatch && trailingDotMatch[0].length < core.length) {
+                suffixPart = trailingDotMatch[0] + suffixPart;
+                core = core.substring(0, core.length - trailingDotMatch[0].length).trim();
+            }
+            
+            // Lookup cleaned core in map
+            if (translateMap[core]) {
+                return text.replace(trimmed, prefixPart + translateMap[core] + suffixPart);
+            }
+            
+            // Match regex on cleaned core
+            for (let rule of regexRules) {
+                if (rule.pattern.test(core)) {
+                    const replacedCore = core.replace(rule.pattern, rule.replace);
+                    return text.replace(trimmed, prefixPart + replacedCore + suffixPart);
                 }
             }
             
-            // 匹配右侧带有箭头的情况，例如 "file >", "task >", "General >" 或使用 unicode 箭头 "file ›", "file →"
-            const arrowMatch = trimmed.match(/^([\s\S]+?)\s*([>›→»]|\bchevron\b)$/);
-            if (arrowMatch) {
-                const prefix = arrowMatch[1].trim();
-                const arrowPart = trimmed.substring(arrowMatch[1].length);
-                if (translateMap[prefix]) {
-                    return text.replace(trimmed, translateMap[prefix] + arrowPart);
-                }
-            }
-            
-            // 正则规则匹配
+            // Match regex on original text (fallback)
             for (let rule of regexRules) {
                 if (rule.pattern.test(text)) {
                     return text.replace(rule.pattern, rule.replace);
                 }
             }
+            
             return null;
         }
 
@@ -922,7 +954,8 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
                 '.cm-editor',
                 '.xterm',
                 '[data-language]',
-                '[data-testid*="code"]'
+                '[data-testid="code-block"]',
+                '[data-testid="code-cell"]'
             ].join(',');
 
             if (node.nodeType === Node.ELEMENT_NODE) {
