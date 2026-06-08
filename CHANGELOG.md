@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.11 - 2026-06-08
+
+- Added translation mapping for task running status (e.g. `running`, `Running`).
+
 ## 0.3.10 - 2026-06-07
 
 - Added translation rules for `Run Command` and `Execute Command` variants in the task logs timeline.

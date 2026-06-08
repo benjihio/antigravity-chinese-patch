@@ -680,6 +680,18 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'Generating...': '正在生成...',
             'Interrupted': '已中断',
             'Cancelled': '已取消',
+            'running': '运行中',
+            'Running': '运行中',
+            'queued': '排队中',
+            'Queued': '排队中',
+            'completed': '已完成',
+            'Completed': '已完成',
+            'failed': '已失败',
+            'Failed': '已失败',
+            'paused': '已暂停',
+            'Paused': '已暂停',
+            'pending': '等待中',
+            'Pending': '等待中',
             
             // Common Utility Actions & Statuses
             'Discard': '放弃',
