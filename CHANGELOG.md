@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.12 - 2026-06-08
+
+- Added translation mapping and regex rules for planning mode actions (e.g. `Auto-proceeded with`, `Implementation Plan`, `Walkthrough`, `Task Checklist`).
+- Added translation mapping and regex rule for file type editing actions (e.g. `Editing js`).
+
 ## 0.3.11 - 2026-06-08
 
 - Added translation mapping for task running status (e.g. `running`, `Running`).

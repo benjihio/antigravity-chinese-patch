@@ -692,6 +692,22 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'Paused': '已暂停',
             'pending': '等待中',
             'Pending': '等待中',
+            'Auto-proceeded with': '已自动继续执行',
+            'auto-proceeded with': '已自动继续执行',
+            'Implementation Plan': '实施计划',
+            'implementation plan': '实施计划',
+            'Walkthrough': '验收说明',
+            'walkthrough': '验收说明',
+            'Editing': '正在编辑',
+            'editing': '正在编辑',
+            'Request Feedback': '请求反馈',
+            'Request feedback': '请求反馈',
+            'Waiting for approval': '等待批准',
+            'Waiting for Approval': '等待批准',
+            'Plan approved': '计划已批准',
+            'Plan Approved': '计划已批准',
+            'Task Checklist': '任务清单',
+            'Task checklist': '任务清单',
             
             // Common Utility Actions & Statuses
             'Discard': '放弃',
@@ -853,6 +869,18 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             {
                 pattern: /\bEditing\s+file\b/i,
                 replace: '正在编辑文件'
+            },
+            {
+                pattern: /\bEditing\s+([a-zA-Z0-9_-]+)\b/i,
+                replace: (match, p1) => `正在编辑 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bAuto-proceeded\s+with\s+([\s\S]+)/i,
+                replace: (match, p1) => `已自动继续执行 ${translateWithShortcut(p1) || p1}`
+            },
+            {
+                pattern: /\bAuto-proceeded\s+with\b/i,
+                replace: '已自动继续执行'
             },
             {
                 pattern: /\bCreating\s+file\s+([\s\S]+)/i,
