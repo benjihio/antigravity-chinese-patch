@@ -1183,8 +1183,16 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
                 replace: (match, p1) => `查看全部 (${p1})`
             },
             {
-                pattern: /Thought for ([^\s]+s)(\s*>)?/,
-                replace: (match, p1, p2) => `思考了 ${p1}${p2 || ''}`
+                pattern: /Thought for (\d+)\s*m\s*(\d+)\s*s(\s*>)?/,
+                replace: (match, p1, p2, p3) => `思考了 ${p1}分${p2}秒${p3 || ''}`
+            },
+            {
+                pattern: /Thought for (\d+(?:\.\d+)?)\s*s(\s*>)?/,
+                replace: (match, p1, p2) => `思考了 ${p1}秒${p2 || ''}`
+            },
+            {
+                pattern: /Thought for (\d+(?:\.\d+)?)\s*m(\s*>)?/,
+                replace: (match, p1, p2) => `思考了 ${p1}分${p2 || ''}`
             },
             {
                 pattern: /Media \(Today ([^\)]+)\)/,

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.13 - 2026-06-08
+
+- Refined thought time (e.g. `Thought for`) translation rules to fully translate time units (e.g. converting `s` to `秒` and `m` to `分`).
+
 ## 0.3.12 - 2026-06-08
 
 - Added translation mapping and regex rules for planning mode actions (e.g. `Auto-proceeded with`, `Implementation Plan`, `Walkthrough`, `Task Checklist`).
