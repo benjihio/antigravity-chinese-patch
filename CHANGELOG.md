@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.14 - 2026-06-09
+
+- Added translation mapping for log analysis actions (e.g. `Direct logs analysis`, `Logs analysis`, `Task logs analysis`).
+
 ## 0.3.13 - 2026-06-08
 
 - Refined thought time (e.g. `Thought for`) translation rules to fully translate time units (e.g. converting `s` to `秒` and `m` to `分`).

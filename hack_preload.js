@@ -708,6 +708,12 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'Plan Approved': '计划已批准',
             'Task Checklist': '任务清单',
             'Task checklist': '任务清单',
+            'Direct logs analysis': '直接日志分析',
+            'direct logs analysis': '直接日志分析',
+            'Logs analysis': '日志分析',
+            'logs analysis': '日志分析',
+            'Task logs analysis': '任务日志分析',
+            'task logs analysis': '任务日志分析',
             
             // Common Utility Actions & Statuses
             'Discard': '放弃',
