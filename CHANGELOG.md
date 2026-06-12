@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.15 - 2026-06-13
+
+- Added translation mapping and regex rules for model quota limits, dynamic remaining time, and AI credit balances.
+- Added adaptive split-text translation rules for browser subagent installation description to prevent React chunk-rendering bypass.
+- Added translation mapping and regex rules for project deletion dialogs, supporting project names and active/archived conversation counts.
+- Added translation mapping for pending messages warning and reasoning break tooltips.
+
 ## 0.3.14 - 2026-06-09
 
 - Added translation mapping for log analysis actions (e.g. `Direct logs analysis`, `Logs analysis`, `Task logs analysis`).
