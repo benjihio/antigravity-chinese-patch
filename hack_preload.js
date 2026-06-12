@@ -35,6 +35,9 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'Submit': '提交',
             'Confirm': '确定',
             'Delete': '删除',
+            'and': '和',
+            'Permanently delete': '永久删除',
+            'including': '，包括',
             'Rename': '重命名',
             'Recent': '最近',
             'Models': '模型',
@@ -136,6 +139,17 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'Edit': '编辑',
 
             // ==================== Accounts & Quotas ====================
+            'Gemini Models': 'Gemini 模型',
+            'Weekly Limit': '周额度',
+            'Five Hour Limit': '5小时额度',
+            'Claude and GPT models': 'Claude 与 GPT 模型',
+            'If on a supported paid plan, you can use AI credits in the interim.': '如果处于支持的付费计划中，在此期间您可以使用 AI 额外额度。',
+            'Within each group, models share a weekly limit and a 5-hour limit. Quota is consumed proportionally to the cost of the tokens. Thus, limits will last longer with shorter tasks or using more cost-effective models. The 5-hour limit smooths out aggregate demand to fairly distribute global capacity across all users, while your weekly limit is tied directly to your individual tier.': '在每个分组中，模型共享周额度和5小时额度。额度消耗与 token 成本成正比。因此，任务越短或使用更具性价比的模型，额度维持时间越长。5小时限制可平滑总体需求，从而在所有用户之间公平分配全局容量，而您的周额度直接与您的个人层级挂钩。',
+            'See Activity': '查看活动',
+            'Get More AI Credits': '获取更多 AI 额外额度',
+            'AI Credits': 'AI 额外额度',
+            'Available AI Credits': '可用 AI 额外额度',
+            'You can upgrade to a Google AI Ultra plan to receive higher rate limits.': '您可以升级到 Google AI Ultra 计划以获得更高的速率限制。',
             'Your Plan: Google AI Pro': '当前计划：Google AI Pro',
             'Your Plan:': '当前计划：',
             'You can upgrade to a Google AI Ultra plan to receive the highest rate limits.': '您可以升级到 Google AI Ultra 计划以获得最高的速率限制。',
@@ -148,6 +162,8 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'Installed MCP Servers': '已安装的 MCP 服务器',
             'Skills': '技能',
             'Rules': '规则',
+            'Pending messages': '待处理消息',
+            'Messages can be sent while the agent is still working. Your message will be queued and inserted at the next available break in reasoning.': '在智能体工作时也可以发送消息。您的消息将被排队，并在下一次推理间歇时插入。',
 
             // ==================== App Settings ====================
             'App Settings': '应用设置',
@@ -353,6 +369,15 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             'Configure the browser subagent. It requires': '配置浏览器子智能体。它需要',
             'Google Chrome': '谷歌浏览器',
             'to be installed. The browser subagent can be invoked by typing /browser in the conversation input box.': '才能安装。您可以通过在对话输入框中输入 /browser 来调用浏览器子智能体。',
+            'to be installed. The browser subagent can be invoked by typing': '才能安装。您可以通过在对话输入框中输入',
+            'in the conversation input box.': '来调用浏览器子智能体。',
+            'in the conversation input box': '来调用浏览器子智能体',
+            'to be installed.': '才能安装。',
+            'to be installed': '才能安装',
+            'The browser subagent can be invoked by typing': '您可以通过在对话输入框中输入',
+            'The browser subagent can be': '浏览器子智能体可以',
+            'invoked by typing': '通过输入来调用',
+            'The browser subagent can be invoked by typing /browser in the conversation input box.': '您可以通过在对话输入框中输入 /browser 来调用浏览器子智能体。',
             'By using this app, you agree to its': '使用此应用即表示您同意其',
             'By using this app, you agree to its Terms of Service': '使用此应用即表示您同意其服务条款',
             'Recommended': '推荐',
@@ -1267,8 +1292,63 @@ if (typeof window !== 'undefined' && !window.__ANTIGRAVITY_ZH_PATCHED__) {
             {
                 pattern: /Show (\d+) breakdowns?/,
                 replace: (match, p1) => `显示 ${p1} 个明细`
+            },
+            {
+                pattern: /You have used some of your weekly limit, it will fully refresh in ([\s\S]+)\./i,
+                replace: (match, p1) => `您已使用部分周额度，将在 ${translateTime(p1)} 后完全刷新。`
+            },
+            {
+                pattern: /You have used some of your 5-hour limit, it will fully refresh in ([\s\S]+)\./i,
+                replace: (match, p1) => `您已使用部分 5 小时额度，将在 ${translateTime(p1)} 后完全刷新。`
+            },
+            {
+                pattern: /You have hit your 5-hour limit, so the weekly limit does not currently apply\. Your 5-hour limit will refresh in ([\s\S]+)\./i,
+                replace: (match, p1) => `您已达到 5 小时额度限制，因此目前不适用周额度。您的 5 小时额度将在 ${translateTime(p1)} 后刷新。`
+            },
+            {
+                pattern: /You have hit your 5-hour limit, it will refresh in ([\s\S]+)\. If on a supported paid plan, you can use AI credits in the interim\./i,
+                replace: (match, p1) => `您已达到 5 小时额度限制，将在 ${translateTime(p1)} 后刷新。在此期间，如果是支持的付费计划，您可以使用 AI 额外额度。`
+            },
+            {
+                pattern: /Available\s+AI\s+Credits:\s*(\d+)/i,
+                replace: (match, p1) => `可用 AI 额外额度：${p1}`
+            },
+            {
+                pattern: /to\s+be\s+installed\.\s+The\s+browser\s+subagent\s+can\s+be\s+invoked\s+by\s+typing\s+\/browser\s+in\s+the\s+conversation\s+input\s+box/i,
+                replace: '安装。您可以通过在对话输入框中输入 /browser 来调用浏览器子智能体。'
+            },
+            {
+                pattern: /Permanently\s+delete\s+([\s\S]+?)\s+including\s+(\d+)\s+active\s+conversations?\s+and\s+(\d+)\s+archived\s+conversations?/i,
+                replace: (match, p1, p2, p3) => `永久删除项目“${p1}”，包括 ${p2} 个活动对话和 ${p3} 个存档对话`
+            },
+            {
+                pattern: /Permanently\s+delete\s+([\s\S]+?)\s+including/i,
+                replace: (match, p1) => `永久删除项目“${p1}”，包括`
+            },
+            {
+                pattern: /(\d+)\s+active\s+conversations?/i,
+                replace: (match, p1) => `${p1} 个活动对话`
+            },
+            {
+                pattern: /(\d+)\s+archived\s+conversations?/i,
+                replace: (match, p1) => `${p1} 个存档对话`
+            },
+            {
+                pattern: /The\s+browser\s+subagent\s+can\s+be\s+invoked\s+by\s+typing\s+\/browser\s+in\s+the\s+conversation\s+input\s+box/i,
+                replace: '您可以通过在对话输入框中输入 /browser 来调用浏览器子智能体。'
             }
         ];
+
+        function translateTime(timeStr) {
+            if (!timeStr) return '';
+            return timeStr
+                .replace(/\bdays?\b/ig, '天')
+                .replace(/\bhours?\b/ig, '小时')
+                .replace(/\bminutes?\b/ig, '分钟')
+                .replace(/\bseconds?\b/ig, '秒')
+                .replace(/\band\b/ig, '和')
+                .replace(/\s+/g, '');
+        }
 
         function translateWithShortcut(text) {
             if (!text || typeof text !== 'string') return null;
